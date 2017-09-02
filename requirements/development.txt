@@ -1,0 +1,11 @@
+-r package.txt
+
+# Test tools
+pytest
+pytest-cov
+pytest-flakes
+pytest_html
+pytest-pep8
+pytest-pylint
+pytest-random
+tox
