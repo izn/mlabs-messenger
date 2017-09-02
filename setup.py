@@ -55,10 +55,11 @@ CLASSIFIERS = [
 
 REQUIREMENTS = ['setuptools']
 
-LONG_DESCRIPTION = (
-    read_content(os.path.join(os.getcwd(), 'CHANGELOG.md')) +
-    read_content(os.path.join(os.getcwd(), 'README.md'))
-)
+LONG_DESCRIPTION = '''
+A Python wrapper for the Facebook Messenger API.
+
+Read the documentation and learn how simple is to use it: http://github.com/magrathealabs/mlabs-messenger
+'''.strip()
 
 setup(
     name = 'mlabs-messenger',
