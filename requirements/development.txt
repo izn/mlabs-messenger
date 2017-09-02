@@ -1,10 +1,10 @@
 -r package.txt
 
 # Test tools
+coverage==4.3.4
 pytest
-pytest-cov
+pytest-cov==2.5.1
 pytest-flakes
-pytest_html
 pytest-pep8
 pytest-pylint
 pytest-random

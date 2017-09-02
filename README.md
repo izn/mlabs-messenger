@@ -1,5 +1,9 @@
 # mlabs-messenger
 
+[![Build Status](https://travis-ci.com/magrathealabs/mlabs-messenger.svg?token=29BMExP3EzBfkxDUwoyJ&branch=master)](https://travis-ci.com/magrathealabs/mlabs-messenger)
+[![Code Climate](https://codeclimate.com/github/magrathealabs/mlabs-messenger/badges/gpa.svg)](https://codeclimate.com/github/magrathealabs/mlabs-messenger)
+[![Test Coverage](https://codeclimate.com/github/magrathealabs/mlabs-messenger/badges/coverage.svg)](https://codeclimate.com/github/magrathealabs/mlabs-messenger/coverage)
+
 A Python wrapper for the Facebook Messenger API
 
 - [Installation](#installation)
