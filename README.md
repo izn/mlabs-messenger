@@ -33,7 +33,18 @@ python setup.py install
 
 ## Usage
 
-[TODO]
+To send a basic text message:
+
+```python
+import os
+
+from messenger import MessengerClient
+from messenger.content_types import TextMessage
+
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', TextMessage('message'))
+```
 
 ## Development
 
