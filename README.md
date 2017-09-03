@@ -37,17 +37,13 @@ python setup.py install
 
 ## Development
 
-Install development dependencies:
-
-```bash
-pip install -r requirements/development.txt
-```
-
 Run tests:
 
 ```bash
 tox
 ```
+
+See details about the development and releasing process on [DEVELOPMENT.md](https://github.com/magrathealabs/mlabs-messenger/blob/master/DEVELOPMENT.md).
 
 ## Documentation
 
