@@ -8,6 +8,8 @@
 
 A Python wrapper for the Facebook Messenger API
 
+## Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Development](#development)

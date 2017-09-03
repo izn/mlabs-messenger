@@ -4,8 +4,6 @@
 coverage==4.3.4
 pytest
 pytest-cov==2.5.1
-pytest-flakes
-pytest-pep8
-pytest-pylint
+pytest-flake8
 pytest-random
 tox
