@@ -46,6 +46,30 @@ client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
 client.send('recipient_id', TextMessage('message'))
 ```
 
+To send a quick reply:
+
+```python
+import os
+
+from messenger import MessengerClient
+from messenger.content_types import QuickReply
+
+text = 'message'
+quick_reply_one = {
+    'content_type': 'text',
+    'payload': '<PAYLOAD>',
+    'title': '<TITLE>',
+    'image_url': '<IMAGE_URL>' or None
+}
+quick_reply_two = {
+    'content_type': 'location'
+}
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', QuickReply(text, quick_reply_one, quick_reply_two))
+```
+
+
 ## Development
 
 Run tests:
