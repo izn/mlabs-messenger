@@ -25,10 +25,10 @@ class QuickReply(object):
     [Send API](https://developers.facebook.com/docs/messenger-platform/send-api-reference#request).
     """
 
-    def __init__(self, text, *hash_list):
+    def __init__(self, text, *quick_replies_list):
         self.text = text
-        for dictionary in hash_list:
-            self.dictionary = dictionary
+        for quick_reply in quick_replies_list:
+            self.quick_reply = quick_reply
         """
         Key parameters
         ----------
@@ -45,10 +45,10 @@ class QuickReply(object):
             not required, however, should be set to None in the dictionary
             image should be at least 24x24
         """
+
     def message(self):
         quick_replies = []
-        for key in self.dictionary:
-            print(key['content_type'])
+        for key in self.quick_reply:
             if key['content_type'] == 'location':
                 quick_replies.append({'content_type': 'location'})
             elif key['content_type'] == 'text':
@@ -57,7 +57,7 @@ class QuickReply(object):
                     'title': key['title'],
                     'payload': key['payload'],
                     'image_url': key['image_url']
-            })
+                })
         return {'text': self.text, 'quick_replies': quick_replies}
 
 
