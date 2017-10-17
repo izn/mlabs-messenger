@@ -33,17 +33,38 @@ python setup.py install
 
 ## Usage
 
-To send a basic text message:
-
 ```python
 import os
 
 from messenger import MessengerClient
-from messenger.content_types import TextMessage
-
-
 client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+```
+
+To send a basic text message:
+
+```python
+from messenger.content_types import TextMessage
 client.send('recipient_id', TextMessage('message'))
+```
+
+To send an attachment
+
+```python
+# Image
+from messenger.content_types import ImageAttachment
+client.send('recipient_id', ImageAttachment('http://example.com/image.jpg', is_reusable=True))
+
+# Audio
+from messenger.content_types import AudioAttachment
+client.send('recipient_id', AudioAttachment('http://example.com/audio.mp3', is_reusable=True))
+
+# Video
+from messenger.content_types import VideoAttachment
+client.send('recipient_id', VideoAttachment('http://example.com/video.mp4', is_reusable=True))
+
+# File
+from messenger.content_types import FileAttachment
+client.send('recipient_id', FileAttachment('http://example.com/file.pdf', is_reusable=True))
 ```
 
 ## Development
