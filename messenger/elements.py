@@ -1,3 +1,6 @@
+import validators
+
+
 class Element(object):
     def __init__(
         self,
@@ -31,11 +34,17 @@ class Element(object):
 
 class OpenGraphElement(object):
     def __init__(self, url, buttons=None):
-        self.elem_dict = dict({
+        if (not validators.url(url)):
+            raise ValueError('Invalid url.')
+
+        self.elem_dict = {
             'url': url
-        })
+        }
 
         if (buttons):
+            if (not all(isinstance(button, Button) for button in buttons)):
+                raise ValueError('Invalid Buttons instances.')
+
             self.elem_dict['buttons'] = [
                 button.invoke() for button in buttons
             ]
@@ -54,10 +63,10 @@ class ReceiptElement(object):
         currency=None,
         image_url=None
     ):
-        self.elem_dict = dict({
+        self.elem_dict = {
             'title': title,
             'price': price
-        })
+        }
 
         if (subtitle):
             self.elem_dict['subtitle'] = subtitle

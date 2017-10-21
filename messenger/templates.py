@@ -2,7 +2,6 @@ from .buttons import *  # noqa ignore=F405
 from .elements import *  # noqa ignore=F405
 from .payment import *  # noqa ignore=F405
 
-
 class Template(object):
     def __init__(self, type, payload):
         self.type = type
@@ -44,7 +43,7 @@ class ButtonTemplate(Template):
 class GenericTemplate(Template):
     def __init__(self, elements, shareable, image_aspect_ratio):
         if (not all(isinstance(element, Element) for element in elements)):
-            raise ValueError('Invalid Elements instances')
+            raise ValueError('Invalid Elements instances.')
 
         payload = {
             'elements': [
@@ -67,13 +66,13 @@ class GenericTemplate(Template):
 class ListTemplate(Template):
     def __init__(self, elements, buttons=None, top_element_style=None):
         if (not all(isinstance(element, Element) for element in elements)):
-            raise ValueError('Invalid Elements instances')
+            raise ValueError('Invalid Elements instances.')
 
-        payload = dict({
+        payload = {
             'elements': [
                 element.invoke() for element in elements
             ]
-        })
+        }
 
         if (buttons):
             if (not all(isinstance(button, Button) for button in buttons)):
