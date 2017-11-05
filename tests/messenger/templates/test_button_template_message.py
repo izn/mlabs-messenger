@@ -1,14 +1,13 @@
-from messenger.templates import (
-    ButtonTemplate,
+from messenger.buttons import (
     URLButton,
     PostbackButton,
     CallButton,
     ShareButton,
     BuyButton,
     LogInButton,
-    LogOutButton,
-    PaymentSummary,
-    PaymentPriceList)
+    LogOutButton)
+from messenger.payment import (PaymentSummary, PaymentPriceList)
+from messenger.templates import ButtonTemplate
 
 
 class TestButtonTemplateMessage(object):

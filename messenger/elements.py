@@ -1,7 +1,21 @@
 import validators
+from messenger.buttons import ButtonGenerator
 
 
-class Element(object):
+class BaseElement(object):
+    def __init__(self):
+        pass
+
+
+class ElementGenerator(BaseElement):
+    def __new__(self, elements):
+        if (not all(isinstance(element, BaseElement) for element in elements)):
+            raise ValueError('Invalid Elements instances.')
+
+        return [element.elem_dict for element in elements]
+
+
+class Element(BaseElement):
     def __init__(
         self,
         title=None,
@@ -24,36 +38,23 @@ class Element(object):
             self.elem_dict['default_action'] = default_action
 
         if (buttons):
-            self.elem_dict['buttons'] = [
-                button.invoke() for button in buttons
-            ]
-
-    def invoke(self):
-        return self.elem_dict
+            self.elem_dict['buttons'] = ButtonGenerator(buttons)
 
 
-class OpenGraphElement(object):
+class OpenGraphElement(BaseElement):
     def __init__(self, url, buttons=None):
         if (not validators.url(url)):
-            raise ValueError('Invalid url.')
+            raise ValueError('Invalid URL.')
 
         self.elem_dict = {
             'url': url
         }
 
         if (buttons):
-            if (not all(isinstance(button, Button) for button in buttons)):
-                raise ValueError('Invalid Buttons instances.')
-
-            self.elem_dict['buttons'] = [
-                button.invoke() for button in buttons
-            ]
-
-    def invoke(self):
-        return self.elem_dict
+            self.elem_dict['buttons'] = ButtonGenerator(buttons)
 
 
-class ReceiptElement(object):
+class ReceiptElement(BaseElement):
     def __new__(
         self,
         title,
@@ -79,6 +80,3 @@ class ReceiptElement(object):
 
         if (image_url):
             self.elem_dict['image_url'] = image_url
-
-    def invoke(self):
-        return self.elem_dict

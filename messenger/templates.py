@@ -1,11 +1,10 @@
-from .buttons import *  # noqa ignore=F405
-from .elements import *  # noqa ignore=F405
-from .payment import *  # noqa ignore=F405
+from .buttons import ButtonGenerator  # noqa ignore=F405
+from .elements import ElementGenerator  # noqa ignore=F405
+
 
 class Template(object):
-    def __init__(self, type, payload):
+    def __init__(self, type):
         self.type = type
-        self.payload = payload
 
     def message(self):
         message = {
@@ -24,68 +23,39 @@ class Template(object):
 
 class ButtonTemplate(Template):
     def __init__(self, title, buttons):
-        if (not all(isinstance(button, Button) for button in buttons)):
-            raise ValueError('Invalid Buttons instances.')
-
-        payload = {
+        self.payload = {
             'title': title,
-            'buttons': [
-                button.invoke() for button in buttons
-            ]
+            'buttons': ButtonGenerator(buttons)
         }
 
-        super().__init__('button', payload)
-
-    def message(self):
-        return super(ButtonTemplate, self).message()
+        super().__init__('button')
 
 
 class GenericTemplate(Template):
     def __init__(self, elements, shareable, image_aspect_ratio):
-        if (not all(isinstance(element, Element) for element in elements)):
-            raise ValueError('Invalid Elements instances.')
-
-        payload = {
-            'elements': [
-                element.invoke() for element in elements
-            ]
+        self.payload = {
+            'elements': ElementGenerator(elements)
         }
 
         if (shareable):
-            payload['sharable'] = shareable
+            self.payload['sharable'] = shareable
 
         if (image_aspect_ratio):
-            payload['image_aspect_ratio'] = image_aspect_ratio
+            self.payload['image_aspect_ratio'] = image_aspect_ratio
 
-        super(GenericTemplate, self).__init__('generic', payload)
-
-    def message(self):
-        return super().message()
+        super().__init__('generic')
 
 
 class ListTemplate(Template):
     def __init__(self, elements, buttons=None, top_element_style=None):
-        if (not all(isinstance(element, Element) for element in elements)):
-            raise ValueError('Invalid Elements instances.')
-
-        payload = {
-            'elements': [
-                element.invoke() for element in elements
-            ]
+        self.payload = {
+            'elements': ElementGenerator(elements)
         }
 
         if (buttons):
-            if (not all(isinstance(button, Button) for button in buttons)):
-                raise ValueError('Invalid Buttons instances.')
-
-            payload['buttons'] = [
-                button.invoke() for button in buttons
-            ]
+            self.payload['buttons'] = ButtonGenerator(buttons)
 
         if (top_element_style):
-            payload['top_element_style'] = top_element_style
+            self.payload['top_element_style'] = top_element_style
 
-        super().__init__('list', payload)
-
-    def message(self):
-        return super().message()
+        super().__init__('list')

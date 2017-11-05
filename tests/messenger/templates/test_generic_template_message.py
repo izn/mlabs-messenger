@@ -1,4 +1,6 @@
-from messenger.templates import GenericTemplate, URLButton, Element
+from messenger.elements import Element
+from messenger.buttons import URLButton
+from messenger.templates import GenericTemplate
 
 
 class TestGenericTemplateMessage(object):

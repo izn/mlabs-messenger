@@ -20,7 +20,7 @@ class PaymentSummary(object):
             'merchant_name': merchant_name,
             'requested_user_info': requested_user_info,
             'price_list': [
-                price.invoke() for price in price_list
+                price.price_list_dict for price in price_list
             ]
         })
 
@@ -36,6 +36,3 @@ class PaymentPriceList(object):
             'label': label,
             'amount': amount
         })
-
-    def invoke(self):
-        return self.price_list_dict

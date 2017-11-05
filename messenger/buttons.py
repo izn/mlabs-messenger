@@ -1,15 +1,20 @@
 import validators
 
 
-class Button(object):
+class BaseButton(object):
     def __init__(self):
         pass
 
-    def invoke(self):
-        return self.button_dict
+
+class ButtonGenerator(BaseButton):
+    def __new__(self, buttons):
+        if (not all(isinstance(button, BaseButton) for button in buttons)):
+            raise ValueError('Invalid Buttons instances.')
+
+        return [button.button_dict for button in buttons]
 
 
-class URLButton(Button):
+class URLButton(BaseButton):
     def __init__(
         self,
         title,
@@ -20,7 +25,7 @@ class URLButton(Button):
         webview_share_button=None
     ):
         if (not validators.url(url)):
-            raise ValueError('Invalid url.')
+            raise ValueError('Invalid URL.')
 
         self.button_dict = {
             'type': 'web_url',
@@ -41,7 +46,7 @@ class URLButton(Button):
             self.button_dict['webview_share_button'] = webview_share_button
 
 
-class PostbackButton(Button):
+class PostbackButton(BaseButton):
     def __init__(self, title, payload):
         self.button_dict = {
             'type': 'postback',
@@ -50,7 +55,7 @@ class PostbackButton(Button):
         }
 
 
-class CallButton(Button):
+class CallButton(BaseButton):
     def __init__(self, title, payload):
         self.button_dict = {
             'type': 'phone_number',
@@ -59,7 +64,7 @@ class CallButton(Button):
         }
 
 
-class ShareButton(Button):
+class ShareButton(BaseButton):
     def __init__(self, title, share_contents=None):
         self.button_dict = {
             'type': 'share', 'title': title
@@ -69,7 +74,7 @@ class ShareButton(Button):
             self.button_dict['share_contents'] = share_contents
 
 
-class BuyButton(Button):
+class BuyButton(BaseButton):
     def __init__(self, title, payload, payment_summary):
         self.button_dict = {
             'type': 'payment',
@@ -79,7 +84,7 @@ class BuyButton(Button):
         }
 
 
-class LogInButton(Button):
+class LogInButton(BaseButton):
     def __init__(self, url):
         if (not validators.url(url)):
             raise ValueError('Invalid url.')
@@ -90,7 +95,7 @@ class LogInButton(Button):
         }
 
 
-class LogOutButton(Button):
+class LogOutButton(BaseButton):
     def __init__(self):
         self.button_dict = {
             'type': 'account_unlink'
