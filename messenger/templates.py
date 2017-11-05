@@ -1,5 +1,5 @@
-from .buttons import ButtonGenerator  # noqa ignore=F405
-from .elements import ElementGenerator  # noqa ignore=F405
+from .buttons import ButtonGenerator
+from .elements import ElementGenerator
 
 
 class Template(object):
