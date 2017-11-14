@@ -8,17 +8,20 @@ class BaseButton(object):
 
 class ButtonGenerator(BaseButton):
     def __new__(self, buttons):
-        if (not all(isinstance(button, BaseButton) for button in buttons)):
-            raise ValueError('Invalid Buttons instances.')
+        if (isinstance(buttons, list)):
+            if (not all(isinstance(button, BaseButton) for button in buttons)):
+                raise ValueError('Invalid Buttons instances.')
 
-        return [button.button_dict for button in buttons]
+            return [button.button_dict for button in buttons]
+
+        return buttons.button_dict
 
 
 class URLButton(BaseButton):
     def __init__(
         self,
-        title,
         url,
+        title=None,
         webview_height_ratio=None,
         messenger_extensions=None,
         fallback_url=None,
@@ -29,9 +32,11 @@ class URLButton(BaseButton):
 
         self.button_dict = {
             'type': 'web_url',
-            'title': title,
             'url': url
         }
+
+        if (title):
+            self.button_dict['title'] = title
 
         if (webview_height_ratio):
             self.button_dict['webview_height_ratio'] = webview_height_ratio
@@ -65,9 +70,9 @@ class CallButton(BaseButton):
 
 
 class ShareButton(BaseButton):
-    def __init__(self, title, share_contents=None):
+    def __init__(self, share_contents=None):
         self.button_dict = {
-            'type': 'share', 'title': title
+            'type': 'element_share'
         }
 
         if (share_contents):

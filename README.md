@@ -33,17 +33,106 @@ python setup.py install
 
 ## Usage
 
-To send a basic text message:
+#### Text message:
 
 ```python
-import os
-
 from messenger import MessengerClient
 from messenger.content_types import TextMessage
 
 
 client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
 client.send('recipient_id', TextMessage('message'))
+```
+
+### Templates
+
+#### Buttons Template
+
+```python
+from messenger import MessengerClient
+from messenger.buttons import (
+	URLButton,
+	PostbackButton,
+	CallButton,
+	ShareButton,
+	LogInButton,
+	LogOutButton
+)
+from messenger.templates import ButtonTemplate
+
+
+button_list = [
+    URLButton('https://example.com', 'Title'),
+    PostbackButton('Title', 'PAYLOAD_HERE'),
+    CallButton('Title', '+0000000000')
+]
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', ButtonTemplate('Title', button_list))
+```
+
+#### Generic Template
+
+```python
+from messenger import MessengerClient
+from messenger.elements import Element
+from messenger.templates import GenericTemplate
+
+
+element_list = [
+    Element('Title', 'Subtitle', 'https://example.com/image.jpg'),
+    Element('Title', 'Subtitle', 'https://example.com/image.jpg')
+]
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', GenericTemplate(element_list, shareable=False, image_aspect_ratio='square'))
+```
+
+#### List Template
+
+```python
+from messenger import MessengerClient
+from messenger.elements import Element
+from messenger.templates import ListTemplate
+
+
+element_list = [
+    Element('Title', 'Subtitle', 'https://example.com/image.jpg'),
+    Element('Title', 'Subtitle', 'https://example.com/image.jpg')
+]
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', ListTemplate(element_list))
+```
+
+### Payment
+
+```python
+from messenger import MessengerClient
+from messenger.buttons import BuyButton
+from messenger.payment import PaymentSummary, PaymentPriceList
+from messenger.templates import ButtonTemplate
+
+
+price_list = [
+    PaymentPriceList('Beer', '5.00'),
+    PaymentPriceList('Hamburger', '10.00'),
+]
+
+buy_button = BuyButton(
+    'Buy',
+    'PAYLOAD_HERE',
+    PaymentSummary(
+        'USD',
+        'FIXED_AMOUNT',
+        'Merchant',
+        ['shipping_address', 'contact_email'],
+        price_list
+    )
+)
+
+client = MessengerClient(os.environ.get('FACEBOOK_PAGE_TOKEN'))
+client.send('recipient_id', ButtonTemplate('Title', buy_button))
 ```
 
 ## Development

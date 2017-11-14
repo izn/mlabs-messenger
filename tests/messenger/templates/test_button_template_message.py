@@ -12,16 +12,16 @@ from messenger.templates import ButtonTemplate
 
 class TestButtonTemplateMessage(object):
     def test_message(self):
-        PriceList = [
+        price_list = [
             PaymentPriceList('Test Item 1', '13.00'),
-            PaymentPriceList('Test Item 2', '18.50'),
+            PaymentPriceList('Test Item 2', '18.50')
         ]
 
-        ButtonList = [
-            URLButton('Title', 'http://example.com'),
+        button_list = [
+            URLButton('http://example.com', 'Title'),
             PostbackButton('Title', 'PAYLOAD_HERE'),
             CallButton('Title', '+0000000000'),
-            ShareButton('Share'),
+            ShareButton(),
             BuyButton(
                 'Buy',
                 'PAYLOAD_HERE',
@@ -30,14 +30,14 @@ class TestButtonTemplateMessage(object):
                     'FIXED_AMOUNT',
                     'Merchant',
                     ['shipping_address', 'contact_email'],
-                    PriceList
+                    price_list
                 )
             ),
             LogInButton('http://example.com'),
             LogOutButton()
         ]
 
-        assert ButtonTemplate('Title', ButtonList).message() == {
+        assert ButtonTemplate('Text', button_list).message() == {
             'attachment': {
                 'payload': {
                     'buttons': [{
@@ -53,8 +53,7 @@ class TestButtonTemplateMessage(object):
                         'title': 'Title',
                         'type': 'phone_number'
                     }, {
-                        'title': 'Share',
-                        'type': 'share'
+                        'type': 'element_share'
                     }, {
                         'payload': 'PAYLOAD_HERE',
                         'payment_summary': {
@@ -82,7 +81,7 @@ class TestButtonTemplateMessage(object):
                         'type': 'account_unlink'
                     }],
                     'template_type': 'button',
-                    'title': 'Title'
+                    'text': 'Text'
                 },
                 'type': 'template'
             }

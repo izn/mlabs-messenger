@@ -35,7 +35,7 @@ class Element(BaseElement):
             self.elem_dict['image_url'] = image_url
 
         if (default_action):
-            self.elem_dict['default_action'] = default_action
+            self.elem_dict['default_action'] = ButtonGenerator(default_action)
 
         if (buttons):
             self.elem_dict['buttons'] = ButtonGenerator(buttons)

@@ -22,9 +22,9 @@ class Template(object):
 
 
 class ButtonTemplate(Template):
-    def __init__(self, title, buttons):
+    def __init__(self, text, buttons):
         self.payload = {
-            'title': title,
+            'text': text,
             'buttons': ButtonGenerator(buttons)
         }
 
@@ -53,7 +53,7 @@ class ListTemplate(Template):
         }
 
         if (buttons):
-            self.payload['buttons'] = ButtonGenerator(buttons)
+            self.payload['buttons'] = [ButtonGenerator(buttons)]
 
         if (top_element_style):
             self.payload['top_element_style'] = top_element_style
