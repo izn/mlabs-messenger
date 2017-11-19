@@ -1,5 +1,5 @@
 import validators
-from messenger.buttons import ButtonGenerator
+from .buttons import ButtonGenerator
 
 
 class BaseElement(object):
@@ -24,9 +24,9 @@ class Element(BaseElement):
         default_action=None,
         buttons=None
     ):
-        self.elem_dict = dict({
+        self.elem_dict = {
             'title': title
-        })
+        }
 
         if (subtitle):
             self.elem_dict['subtitle'] = subtitle

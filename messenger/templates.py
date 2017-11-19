@@ -22,6 +22,13 @@ class Template(object):
 
 
 class ButtonTemplate(Template):
+    '''The button template sends a text message with up to three attached
+    buttons. This template is useful for offering the message recipient options
+    to choose from, such as pre-determined responses to a question, or actions
+    to take.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button)
+    '''
+
     def __init__(self, text, buttons):
         self.payload = {
             'text': text,
@@ -32,6 +39,13 @@ class ButtonTemplate(Template):
 
 
 class GenericTemplate(Template):
+    '''The generic template is a simple structured message
+    that includes a title, subtitle, image, and up to three buttons.
+    You may also specify a default_action object that sets a URL that will be
+    opened in the Messenger webview when the template is tapped.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic)
+    '''
+
     def __init__(self, elements, shareable, image_aspect_ratio):
         self.payload = {
             'elements': ElementGenerator(elements)
@@ -47,6 +61,14 @@ class GenericTemplate(Template):
 
 
 class ListTemplate(Template):
+    '''The list template is a list of 2-4 structured items with an optional
+    global button rendered at the bottom. Each item may contain a thumbnail
+    image, title, subtitle, and one button. You may also specify a
+    default_action object that sets a URL that will be opened in the Messenger
+    webview when the item is tapped.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/send-messages/template/list)
+    '''
+
     def __init__(self, elements, buttons=None, top_element_style=None):
         self.payload = {
             'elements': ElementGenerator(elements)

@@ -18,6 +18,11 @@ class ButtonGenerator(BaseButton):
 
 
 class URLButton(BaseButton):
+    """The URL Button opens a webpage in the Messenger webview.
+    This button can be used with the Button and Generic Templates.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/url)
+    """
+
     def __init__(
         self,
         url,
@@ -27,6 +32,22 @@ class URLButton(BaseButton):
         fallback_url=None,
         webview_share_button=None
     ):
+        """
+        Parameters
+        ----------
+        url : str
+            Must use HTTPS protocol if messenger_extensions is true.
+        title : str, optional
+            Must be UTF-8 and has a 20 character limit.
+        webview_height_ratio : str, optional
+            compact, tall or full. defaults to full.
+        messenger_extensions : bool, optional
+            Must be true if using Messenger Extensions.
+        fallback_url : str, optional
+            It may only be specified if messenger_extensions is true.
+        webview_share_button : str, optional
+            Set to 'hide' to disable the share button in the Webview.
+        """
         if (not validators.url(url)):
             raise ValueError('Invalid URL.')
 
@@ -52,7 +73,22 @@ class URLButton(BaseButton):
 
 
 class PostbackButton(BaseButton):
+    """When the postback button is tapped, the Messenger Platform sends an event
+    to your postback webhook. This is useful when you want to invoke an action
+    in your bot.
+    This button can be used with the Button Template and Generic Template.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback)
+    """
+
     def __init__(self, title, payload):
+        """
+        Parameters
+        ----------
+        title : str
+            20 character limit.
+        payload : str
+            1000 character limit.
+        """
         self.button_dict = {
             'type': 'postback',
             'title': title,
@@ -61,7 +97,21 @@ class PostbackButton(BaseButton):
 
 
 class CallButton(BaseButton):
+    """The Call Button can be used to initiate a phone call.
+    This button can be used with the Button and Generic Templates.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/call)
+    """
+
     def __init__(self, title, payload):
+        """
+        Parameters
+        ----------
+        title : str
+            20 character limit.
+        payload : str
+            Must have "+" prefix followed by the country code, area code and
+            local number (i.e: +16505551234).
+        """
         self.button_dict = {
             'type': 'phone_number',
             'title': title,
@@ -70,7 +120,21 @@ class CallButton(BaseButton):
 
 
 class ShareButton(BaseButton):
+    """The Share Button enables people to share your content in Messenger.
+    Messages shared this way show an attribution to your bot that recipients can
+    tap to learn more about your bot.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/share)
+    """
+
     def __init__(self, share_contents=None):
+        """
+        Parameters
+        ----------
+        share_contents : str, optional
+            Only supports the following:
+            - Template used must be generic template.
+            - Maximum of one URL button on the template.
+        """
         self.button_dict = {
             'type': 'element_share'
         }
@@ -80,7 +144,22 @@ class ShareButton(BaseButton):
 
 
 class BuyButton(BaseButton):
+    """ The buy button enables you to build a checkout experience in Messenger.
+    This button opens a native checkout dialog that enables people to make
+    payments using their information stored in Messenger.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/buy)
+    """
+
     def __init__(self, title, payload, payment_summary):
+        """
+        Parameters
+        ----------
+        title : str
+            Must be "Buy".
+        payload : str
+        payment_summary : dict
+            Must be a PaymentSummary dict
+        """
         self.button_dict = {
             'type': 'payment',
             'title': title,
@@ -90,7 +169,17 @@ class BuyButton(BaseButton):
 
 
 class LogInButton(BaseButton):
+    """The log in button triggers the account linking authentication flow.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/login)
+    """
+
     def __init__(self, url):
+        """
+        Parameters
+        ----------
+        url : str
+            Must use HTTPS protocol.
+        """
         if (not validators.url(url)):
             raise ValueError('Invalid url.')
 
@@ -101,6 +190,10 @@ class LogInButton(BaseButton):
 
 
 class LogOutButton(BaseButton):
+    """The log out button triggers the account unlinking flow.
+    [Send API](https://developers.facebook.com/docs/messenger-platform/reference/buttons/logout)
+    """
+
     def __init__(self):
         self.button_dict = {
             'type': 'account_unlink'

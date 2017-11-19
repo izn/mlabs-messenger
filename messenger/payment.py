@@ -14,7 +14,7 @@ class PaymentSummary(object):
         if (not all(isinstance(price, PaymentPriceList) for price in price_list)):
             raise ValueError('Invalid PaymentPriceList instances.')
 
-        payment_dict = dict({
+        payment_dict = {
             'currency': currency,
             'payment_type': payment_type,
             'merchant_name': merchant_name,
@@ -22,7 +22,7 @@ class PaymentSummary(object):
             'price_list': [
                 price.price_list_dict for price in price_list
             ]
-        })
+        }
 
         if (is_test_payment):
             payment_dict['is_test_payment'] = is_test_payment
@@ -32,7 +32,7 @@ class PaymentSummary(object):
 
 class PaymentPriceList(object):
     def __init__(self, label, amount):
-        self.price_list_dict = dict({
+        self.price_list_dict = {
             'label': label,
             'amount': amount
-        })
+        }
