@@ -3,7 +3,7 @@ from .buttons import ButtonGenerator, BaseButton
 from typing import Dict, List, Any, Union, Optional
 
 class BaseElement(object):
-    elem_dict: Dict[str, str]
+    elem_dict: Dict[str, Any]
 
 
 class ElementGenerator(BaseElement):
@@ -20,7 +20,7 @@ class Element(BaseElement):
         title: str,
         subtitle: Optional[str] = None,
         image_url: Optional[str] = None,
-        default_action: Optional[str] = None,
+        default_action: Optional[Any] = None, # TODO
         buttons: Optional[BaseButton] = None
     ) -> None:
         self.elem_dict = {

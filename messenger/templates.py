@@ -1,6 +1,6 @@
 from .buttons import BaseButton, ButtonGenerator
 from .elements import BaseElement, ElementGenerator
-from typing import Dict, List, Union, Optional, Collection, Sequence
+from typing import Dict, List, Union, Optional, Collection, Sequence, Any
 
 
 class Template(object):
@@ -13,7 +13,7 @@ class Template(object):
             str
         ]]
 
-    def message(self) -> Dict[str, Collection[str]]:
+    def message(self) -> Dict[str, Any]:
         message: Dict[str, Collection[str]] = {
             'attachment': {
                 'type': 'template',
@@ -83,7 +83,7 @@ class ListTemplate(Template):
 
     def __init__(
         self,
-        elements: Sequence[BaseElement],
+        elements: List[BaseElement],
         buttons: Optional[List[BaseButton]] = None,
         top_element_style: Optional[str] = None
     ) -> None:
